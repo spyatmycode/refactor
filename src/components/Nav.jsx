@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 
@@ -9,12 +9,9 @@ import {
   FaChevronCircleLeft,
   FaSignOutAlt,
   FaListAlt,
-  FaMap,
   FaMapMarkedAlt,
-  FaMapMarked,
-  FaMapPin,
-  FaRegMap,
-  FaPen
+  FaBell,
+  
 } from 'react-icons/fa';
 
 import { signOut } from 'firebase/auth';
@@ -43,7 +40,7 @@ const NavBar = () => {
   const handleSignOut = async () => {
     try {
       await signOut(auth).then(() => {
-        navigate("/auth")
+        navigate("/")
       })
 
     } catch (error) {
@@ -120,6 +117,17 @@ const NavBar = () => {
 
                 <li className='flex items-center list-none mt-10 px-10 pt-0 mb-10 h-10 pr-10   rounded-lg w-48'>
                   <Link
+                    to='/messaging'
+                    className='flex items-center h-full no-underline rounded-md transition-all duration-300 w-full'
+                  >
+                    <FaBell size='20px' />
+                    {navExpand ? (
+                      <span className='ml-2 font-semibold opacity-1  transition-all duration-700'>Alerts</span>
+                    ) : <span className='ml-2 font-semibold opacity-0'>Alerts</span>}
+                  </Link>
+                </li>
+                <li className='flex items-center list-none mt-10 px-10 pt-0 mb-10 h-10 pr-10   rounded-lg w-48'>
+                  <Link
                     to='/profile'
                     className='flex items-center h-full no-underline rounded-md transition-all duration-300 w-full'
                   >
@@ -145,7 +153,7 @@ const NavBar = () => {
             </div>
             {/* bottom content beginning */}
 
-            <div className='items-center pt-10 mt-[100px]'>
+            <div className='items-center pt-10 mt-[20px]'>
               <li className='flex pl-10 items-center h-10 list-none  rounded-lg w-48 dark:text-white'>
                 <div onClick={handleSignOut} >
                   <Link

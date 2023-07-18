@@ -135,7 +135,7 @@ const GeoModal = ({ location, query, cancel, radius }) => {
       {location ? (
         <div className="flex flex-col md:flex-row m-5  justify-center items-center px-5 py-7 shadow mt-10 border divide-x bg-white rounded-lg">
           <div className="flex flex-col w-1/2 justify-between gap-4">
-            <h1 className="font-bold text-2xl text-red-700">
+            <h1 className="font-bold text-base lg:text-2xl text-red-700">
               {query}
 
               <span className="font-semibold block">
@@ -195,7 +195,7 @@ const GeoModal = ({ location, query, cancel, radius }) => {
 
       {loading ? (
         <div className="w-full h-full top-0 absolute flex  items-center justify-center backdrop-brightness-50 flex-col gap-5">
-          <div className="text-white text-2xl italic">Loading...</div>
+          <div className="text-white text-base lg:text-2xl italic">Loading...</div>
           <img src={loader} alt="loader" width={"100px"} />
         </div>
       ) : (
@@ -348,7 +348,7 @@ const Map = () => {
 
     //The below shows the components that are being rendered
     <>
-      <nav className="w-full font-bold text-4xl p-10 text-blue-500">
+      <nav className="w-full font-bold text-base lg:text-4xl p-10 text-blue-500">
         
         Geofence Creation
 
@@ -356,7 +356,7 @@ const Map = () => {
       <div className="flex items-center w-full flex-col relative">
         <div ref={mapContainer} className="h-[400px] w-full" />
 
-        <div className="flex justify-center items-center text-2xl my-5">
+        <div className="flex justify-center items-center text-base lg:text-2xl my-5">
           <h1 className="text-2xl font-bold text-blue-700 italic">Create a New Geofence</h1>
         </div>
 

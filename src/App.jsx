@@ -45,11 +45,12 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route
-              path="/auth"
+            index
+              path="/" 
               element={
-                <Protected>
+               
                   <UserAuth />
-                </Protected>
+                
               }
             />
 
@@ -60,7 +61,7 @@ const App = () => {
                 </Protected>
               }
               
-              path="/"
+              
             >
               <Route
 
@@ -108,7 +109,7 @@ const App = () => {
                     <Geofence />
                   </Protected>
                 }
-                path="/"
+                path="/geofence"
                 index
               />
              
@@ -130,7 +131,7 @@ const App = () => {
 
               <div className=" h-screen flex flex-col w-screen justify-center items-center ">
                 
-                <h3 className="text-3xl font-bold text-red-600">Error 404: Page not found</h3>
+                <h3 className="text-base lg:text-3xl font-bold text-red-600">Error 404: Page not found</h3>
 
               <button className="p-4 rounded-md bg-blue-950 text-white mt-6">
                <Link to={'/geofence'}> Back to Dashboard </Link>

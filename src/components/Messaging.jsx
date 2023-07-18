@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import Database, { DatabaseContext } from "../contexts/Database";
+import  { useContext, useEffect, useState } from "react";
+import  { DatabaseContext } from "../contexts/Database";
 import girl from "../assets/girl.jpeg";
 import { AuthContext } from "../contexts/AuthProvider";
 import { toast } from "react-hot-toast";
 import loader from '../assets/220 (2).gif'
 const Messaging = () => {
-  const { user, userDb } = useContext(AuthContext);
+  const { userDb } = useContext(AuthContext);
   const { data } = useContext(DatabaseContext);
   const [geoObject, setGeoObject] = useState({});
   const [latitude, setLatitude] = useState(null);
@@ -83,10 +83,7 @@ const Messaging = () => {
     return distance;
   }
 
-  const geofenceCenter = {
-    lat: 0,
-    lon: 0,
-  };
+
 
   const currentLocation = {
     lat: latitude,
@@ -97,7 +94,10 @@ const Messaging = () => {
 
   console.log(date);
   const initialMessage = {
-    content: `Hello ${userDb.nextofkin} Its me ${userDb.firstname} ${userDb.lastname} I've been kidnapped. Please reach out to the authorities. My last know coordinates are ${"6.5142784, 3.3718272"} at the Bells University of Technology.`,
+    content: `Hello ${userDb.nextofkin} Its me ${userDb.firstname} ${userDb.lastname} I've been kidnapped. Please reach out to the authorities. My last know coordinates are ${"6.5142784, 3.3718272"} at the Bells University of Technology.
+    Here is a map reference: https://www.latlong.net/c/?lat=6.514278&long=3.371827
+    
+    `,
     phonenumber: userDb.phonenumber,
     time: date,
   }
@@ -148,7 +148,7 @@ const Messaging = () => {
           />
         </div>
 
-        <h4 className="my-4 font-bold text-2xl text-white">Create an Alert</h4>
+        <h4 className="my-4 font-bold text-base lg:text-2xl text-white">Create an Alert</h4>
 
         <form
           className="mx-4 lg:w-[400px] shadow-lg flex flex-col items-center bg-white rounded-lg"

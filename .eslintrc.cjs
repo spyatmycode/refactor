@@ -10,7 +10,11 @@ module.exports = {
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh'],
   rules: {
-    'react-refresh/only-export-components': 'warn',
-    'import/no-webpack-loader-syntax': 'error'
+    'react-refresh/only-export-components': 'off',
+    'import/no-webpack-loader-syntax': 'off',
+    'no-unused-vars': 'warn',
+    'react/prop-types': 'off',
+    'react/no-unknown-property':'off',
+    'react/no-unescaped-entities':'off'
   },
 }

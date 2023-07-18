@@ -13,7 +13,7 @@ const GeolocationComponent = () => {
   const { data } = useContext(DatabaseContext);
 
   console.log(data);
-  const { user, userDb } = useContext(AuthContext);
+  const {  userDb } = useContext(AuthContext);
 
 
   useEffect(() => {
@@ -153,10 +153,10 @@ const GeolocationComponent = () => {
 
 useEffect(()=>{
   const getLocationName = async ()=>{
-   const fetching = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=6.5142784&lon=3.3718272&limit=10&appid=f69641da28e1611191ff665c76110cbf`)
+   const fetching = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=10&appid=f69641da28e1611191ff665c76110cbf`)
   const gotten = await fetching.json()
 
-  setLocationName(gotten[0].name)
+  gotten && setLocationName(gotten[0]?.name)
 
   console.log(await gotten);
 
@@ -165,16 +165,35 @@ useEffect(()=>{
 getLocationName()
 
 },[latitude, longitude])
+
+
+const refresh=()=>{
+
+  console.log("clickeddd");
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+    },
+    (error) => {
+      setError(`Error: ${error.message}`);
+
+    }
+  );
+
+
+}
   
   // Output: 3933.82 kilometers
   /* http://api.openweathermap.org/geo/1.0/reverse?lat=6.5142784&lon=3.3718272&limit=10&appid=f69641da28e1611191ff665c76110cbf */
   return (
     <>
-    <div className="w-full ml-20 text-blue-600 font-bold text-2xl py-5">
+    <div className="w-full ml-20 text-blue-600 font-bold text-base lg:text-2xl py-5">
       Home - Current Geofence Data
     </div>
       <div className="rounded-lg shadow-md flex items-center flex-row-reverse justify-around  p-4 mx-7 bg-[#FE8071] text-white">
-        <div className="w-32 h-32 rounded-full border-[5px] border-black overflow-hidden">
+        <div className="w-32 h-32 rounded-full border-[5px] border-black overflow-hidden" onClick={refresh}>
           <img
             src={girl}
             alt="Profile Image"
@@ -184,14 +203,14 @@ getLocationName()
 
       
         <div className="flex flex-col ">
-          <span className="font-bold text-3xl">{userDb && userDb.firstname}</span>
+          <span className="font-bold  text-base lg:text-3xl">{userDb && userDb.firstname}</span>
           <span className="text-xl">{userDb && userDb.lastname}</span>
           <span>Current Location:</span>
-          <span className="text-black font-bold text-xl">{latitude || "6.6859° N"}, {longitude ||  "3.1711° E"}</span>
+          <span className="text-black font-bold text-xl">{latitude || "Loading.."}, {longitude ||  "Loading..."}</span>
         </div>
       </div>
 
-      <div className="my-5 flex flex-col justify-center gap-4 mx-7 place-items-center lg:w-3/4 items-center  lg:grid grid-cols-3">
+      <div className="my-5 flex flex-col justify-center gap-4 mx-7 place-items-center  lg:w-full items-center  lg:grid grid-cols-3">
 
       <div className="relative my-10 flex items-center justify-center w-full">
           <div className="w-[300px] flex justify-center items-center ">
@@ -205,7 +224,7 @@ getLocationName()
           Current Location Name:
           </span>
 
-        <span className="text-3xl font-bold text-white"> {locationname && locationname}</span>
+        <span className="text-base lg:text-3xl font-bold text-white"> {locationname && locationname}</span>
 
         </div>
 
@@ -227,7 +246,7 @@ getLocationName()
 
           <span className="font-bold text-xl">Geofence Status</span>
 
-         <span className="text-2xl font-bold text-white">{distance <= radius ? "Inside Geofence": "Outside Geofence"}</span>
+         <span className="text-base lg:text-2xl font-bold text-white">{(longitude && latitude)?(distance <= radius ? "Inside Geofence": <span className="text-red-600">Outside Geofence</span>):"Loading..."}</span>
 
         </div>
 

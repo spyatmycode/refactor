@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from 'firebase/auth';
@@ -13,7 +13,7 @@ const CircularNav = () => {
     try {
       await signOut(auth).then(() => {
         localStorage.removeItem("userAuthGeofence")
-        navigate("/auth")
+        navigate("/")
       })
 
     } catch (error) {

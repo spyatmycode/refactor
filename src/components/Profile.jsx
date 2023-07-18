@@ -1,22 +1,20 @@
-import React, { useContext, useState } from "react";
-import { FaUserCircle } from "react-icons/fa";
+import  { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
-import { updateProfile, updatePhoneNumber, updateEmail } from "firebase/auth";
+import { updateProfile,  updateEmail } from "firebase/auth";
 import girl from '../assets/girl.jpeg'
 import { auth } from "../firebase/firebase";
 import { toast } from "react-hot-toast";
 import loader from "../assets/220 (2).gif";
 import { database } from "../firebase/firebase";
-import { ref, set, onValue } from "firebase/database";
+import { ref, set} from "firebase/database";
 
 const Profile = () => {
-  const { user, userDb } = useContext(AuthContext);
+  const { userDb } = useContext(AuthContext);
 
-  const doThis = async () => {
-    console.log(userDb);
-  };
-
+  
   const [loading, setLoading] = useState(false);
+
+
 
   const [userInputs, setUserInputs] = useState({
     firstname: userDb.firstname || "",
@@ -59,7 +57,7 @@ const Profile = () => {
       email: userInputs.email,
       phonenumber: userInputs.phone,
       nextofkin:userInputs.nextofkin
-    });
+    })
   };
 
   const handleChange = (e) => {
@@ -70,7 +68,7 @@ const Profile = () => {
 
   return (
     <>
-      <nav className=" w-full font-bold text-4xl p-10 text-blue-500">Your Profile</nav>
+      <nav className=" w-full font-bold text-base lg:text-4xl p-10 text-blue-500">Your Profile</nav>
       <div className="w-full">
         <div className="flex justify-center items-center p-10 flex-col">
         <div className="w-32 h-32 rounded-full border-2 border-blue-500 overflow-hidden">

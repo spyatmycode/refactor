@@ -1,4 +1,4 @@
-import React, { useState,useContext  } from "react";
+import  { useState,useContext  } from "react";
 import svg from "../assets/main.png";
 import loader from "../assets/220 (2).gif";
 import {
@@ -12,11 +12,10 @@ import { Slide } from "react-awesome-reveal";
 import { auth } from "../firebase/firebase";
 import {
   createUserWithEmailAndPassword,
-  updateProfile,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { database } from "../firebase/firebase";
-import {onValue, ref, set, get, child} from 'firebase/database'
+import { ref, set, } from 'firebase/database'
 import { AuthContext } from "../contexts/AuthProvider";
 import {toast} from "react-hot-toast";
 import { useNavigate } from "react-router";
@@ -47,7 +46,7 @@ const Signin = ({ setCurrent }) => {
           `Login successful ! Welcome ${userCredential.user.displayName}`
         );
         console.log(user);
-        navigate("/");
+        navigate("/profile");
       })
       .catch((err) => {
         console.log(err);
@@ -69,7 +68,7 @@ const Signin = ({ setCurrent }) => {
         </div>
         <div className="flex flex-col h-full justify-center gap-10 lg:gap-28 lg:w-[450px]">
           <Slide direction="right">
-            <h2 className="text-4xl text-center md:text-4xl font-normal text-gray-700 ">
+            <h2 className="text-base text-center md:text-4xl font-normal text-gray-700 ">
               Welcome to <span className="text-blue-600">GeoSafe</span>
             </h2>
             <form
@@ -122,7 +121,7 @@ const Signin = ({ setCurrent }) => {
               <span>
                 Don't have an account?{" "}
                 <span
-                  onClick={() => setCurrent(1)}
+                  onClick={() => setCurrent(0)}
                   className="text-blue-600 cursor-pointer 
                         "
                 >
@@ -164,7 +163,7 @@ const Register = ({ setCurrent }) => {
 
         setLoading(false);
 
-        navigate("/");
+        navigate("/profile");
 
         toast.success("Registration success");
 
@@ -172,7 +171,7 @@ const Register = ({ setCurrent }) => {
         // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
+      
         console.log(error);
         const errorMessage = error.message;
         setLoading(false);
@@ -191,7 +190,7 @@ const Register = ({ setCurrent }) => {
         </div>
         <div className="flex flex-col h-full justify-center gap-10 lg:gap-28 lg:w-[400px]">
           <Slide direction="right">
-            <h2 className="text-4xl text-center md:text-4xl font-normal text-gray-700 ">
+            <h2 className="text-base text-center md:text-4xl font-normal text-gray-700 ">
               Welcome to <span className="text-blue-600">GeoSafe</span>
             </h2>
             <form
@@ -298,7 +297,7 @@ const Register = ({ setCurrent }) => {
               <span>
                 Do you already have an account ?{" "}
                 <span
-                  onClick={() => setCurrent(0)}
+                  onClick={() => setCurrent(1)}
                   className="text-blue-600 cursor-pointer 
                         "
                 >
@@ -318,9 +317,9 @@ const Register = ({ setCurrent }) => {
 const Render = () => {
   const [current, setCurrent] = useState(0);
   return current === 0 ? (
-    <Signin setCurrent={setCurrent} />
+     <Register setCurrent={setCurrent} />
   ) : (
-    <Register setCurrent={setCurrent} />
+   <Signin setCurrent={setCurrent} />
   );
 };
 

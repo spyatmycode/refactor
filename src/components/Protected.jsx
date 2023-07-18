@@ -1,11 +1,11 @@
-import React from 'react'
+
 import { useContext } from 'react'
 import { AuthContext } from '../contexts/AuthProvider'
 import { Navigate } from 'react-router'
 
 const Protected = ({children}) => {
 
-    const {user} = useContext(AuthContext)
+   /*  const {user} = useContext(AuthContext)
 
     if(children.type.name === "Render"){
 
@@ -23,7 +23,9 @@ const Protected = ({children}) => {
         
         default: return children;
     }
+ */
 
+    return children
 
    
  

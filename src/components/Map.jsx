@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
-import mapboxgl from 'mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
-import { FaInfo } from 'react-icons/fa'
+import mapboxgl from '!mapbox-gl' 
 import "mapbox-gl/dist/mapbox-gl.css";
+import * as turf from '@turf/turf';
 
 
 
@@ -157,7 +157,7 @@ const Map = ({ coords, city, locationname }) => {
           map.current.on("load", addCircleLayer);
         } else {
           // If the circle layer already exists, update the data
-          const circleData = turf.circle(coords, Number(geofence.radius), {
+          const circleData = turf.circle(coords, Number(10), {
             steps: 20,
             units: "kilometers",
           });

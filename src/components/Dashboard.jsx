@@ -43,7 +43,7 @@ const Modal = ({ setShowModal, deleteFunction, deleteItem, setDeleteItem }) => {
   return (
     <div className="w-full h-full fixed top-0 bg-gray-500 bg-opacity-40 flex justify-center items-center">
       <div className="px-5 py-5 rounded-lg bg-white shadow-lg ">
-        <h2 className="font-bold text-md p-3">
+        <h2 className="font-bold text-base lg:text-2xl p-3">
           Are you sure you want to delete this geolocation?
         </h2>
 
@@ -204,7 +204,7 @@ const Dashboard = () => {
 
   return (
     <>
-     <nav className="w-full font-bold text-4xl p-10 text-blue-500">
+     <nav className="w-full font-bold text-base lg:text-4xl p-10 text-blue-500">
         
         Dashboard
 
@@ -304,7 +304,7 @@ const Dashboard = () => {
                             var formattedDate = year + "-" + month + "-" + day;
 
                             return (
-                              <tr>
+                              <tr key={id}>
                                 <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                                   {formattedDate}
                                 </td>
@@ -394,7 +394,7 @@ const Dashboard = () => {
             </section>
           </div>
 
-          <h2 className="text-3xl font-bold text-center py-4">
+          <h2 className="text-base lg:text-3xl font-bold text-center py-4">
             User statistics
           </h2>
 
@@ -485,7 +485,7 @@ const Dashboard = () => {
         </div>
       ) : (
         <div className="w-full h-full top-0 absolute flex  items-center justify-center backdrop-brightness-50 flex-col gap-5">
-        <div className="text-white text-2xl italic">Loading...</div>
+        <div className="text-white text-base lg:text-2xl italic">Loading...</div>
         <img src={loader} alt="loader" width={"100px"} />
       </div>
       )}

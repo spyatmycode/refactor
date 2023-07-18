@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { createContext, useContext } from "react";
+import  { useEffect, useState } from "react";
+import { createContext } from "react";
 import { auth, database } from "../firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { set, ref, onValue } from "firebase/database";
+import {  ref, onValue } from "firebase/database";
 
 export const AuthContext = createContext();
 
@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
   const [userDb, setUserDb] = useState(null);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
-  const [checkLogged, setCheckLogged] = useState(true);
+
 
   useEffect(() => {
     const watchId = navigator.geolocation.watchPosition(
@@ -26,9 +26,9 @@ const AuthProvider = ({ children }) => {
       }
     );
 
-    /*  return () => {
+     return () => {
           navigator.geolocation.clearWatch(watchId);
-        }; */
+        };
   }, []);
 
   useEffect(() => {
