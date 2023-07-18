@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 //Line 7 to 13 involves imports from React that are necessary for front end
 
 
-import mapboxgl from "mapbox-gl";
+import mapboxgl from "!mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import * as turf from "@turf/turf";
 

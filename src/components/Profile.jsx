@@ -17,11 +17,11 @@ const Profile = () => {
 
 
   const [userInputs, setUserInputs] = useState({
-    firstname: userDb.firstname || "",
-    lastname: userDb.lastname || "",
-    email: userDb.email || "",
-    phone: userDb.phoneNumber || "",
-    nextofkin:userDb.nextofkin|| ""
+    firstname: userDb?.firstname || "",
+    lastname: userDb?.lastname || "",
+    email: userDb?.email || "",
+    phone: userDb?.phoneNumber || "",
+    nextofkin:userDb?.nextofkin|| ""
   });
 
   const updateInfo = async (e) => {
@@ -69,7 +69,9 @@ const Profile = () => {
   return (
     <>
       <nav className=" w-full font-bold text-base lg:text-4xl p-10 text-blue-500">Your Profile</nav>
-      <div className="w-full">
+      {
+        userDb ? (
+          <div className="w-full">
         <div className="flex justify-center items-center p-10 flex-col">
         <div className="w-32 h-32 rounded-full border-2 border-blue-500 overflow-hidden">
           <img
@@ -79,7 +81,7 @@ const Profile = () => {
           />
         </div>
 
-          <div className="font-bold">{userDb.firstname || ""}</div>
+          <div className="font-bold">{userDb?.firstname || ""}</div>
         </div>
 
         <form onSubmit={(e) => updateInfo(e)}>
@@ -90,7 +92,7 @@ const Profile = () => {
               </label>
               <input
                 type="text"
-                defaultValue={userDb.firstname || ""}
+                defaultValue={userDb?.firstname || ""}
                 placeholder="Enter your First Name"
                 className="outline-none border-b-[2px] border-blue-700  p-2"
                 onChange={(e) => handleChange(e)}
@@ -103,7 +105,7 @@ const Profile = () => {
               </label>
               <input
                 type="text"
-                defaultValue={userDb.lastname || ""}
+                defaultValue={userDb?.lastname || ""}
                 placeholder="Enter your Last Name"
                 className="outline-none border-b-[2px] border-blue-700  p-2"
                 onChange={(e) => handleChange(e)}
@@ -165,8 +167,16 @@ const Profile = () => {
         </button> */}
         </form>
       </div>
+        ):(
+  <div className="w-full h-full top-0 absolute flex  items-center justify-center backdrop-brightness-50 flex-col gap-5">
+  <div className="text-white text-base lg:text-2xl italic">Loading...</div>
+  <img src={loader} alt="loader" width={"100px"} />
+</div>
+)
+      }
     </>
   );
 };
 
 export default Profile;
+

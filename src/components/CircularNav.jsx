@@ -29,7 +29,7 @@ const CircularNav = () => {
             <Link to={'/home'}><li className="mobile_l  rounded-full shadow-lg w-[120px] bg-blue-600 text-center text-white p-5 m-4">Home</li></Link>
             <Link to={'/dashboard'}><li className="mobile_l  rounded-full shadow-lg w-[120px] bg-blue-600 text-center text-white p-5 m-4">Dashboard</li></Link>
             <Link to={'/profile'}><li className="mobile_l  rounded-full shadow-lg w-[120px] bg-blue-600 text-center text-white p-5 m-4">Profile</li></Link>
-            <Link to={'/'}><li className="mobile_l  rounded-full shadow-lg w-[120px] bg-blue-600 text-center text-white p-5 m-4">New</li></Link>
+            <Link to={'/geofence'}><li className="mobile_l  rounded-full shadow-lg w-[120px] bg-blue-600 text-center text-white p-5 m-4">New</li></Link>
             <Link to={'/messaging'}><li className="mobile_l  rounded-full shadow-lg w-[120px] bg-blue-600 text-center text-white p-5 m-4">Messaging</li></Link>
             <li className="mobile_l  rounded-full shadow-lg w-[120px] bg-blue-600 text-center text-white p-5 m-4" onClick={handleSignOut}>SignOut</li>
 
