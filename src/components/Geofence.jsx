@@ -66,6 +66,7 @@ const GeoModal = ({ location, query, cancel, radius }) => {
   // Line 66: location, query, cancel, radius are all props passed into the Geomodal from the Geofence component
 
   const { user } = useContext(AuthContext);
+  const { userDb } = useContext(AuthContext);
 
   const uid = v4();
 
@@ -76,7 +77,7 @@ const GeoModal = ({ location, query, cancel, radius }) => {
   // Line 76: here we are destructuring the ID, center coordinates and placename from the retrieved location which is an object.
   
 
-  const [contactInfo, setContactInfo] = useState("234");
+  const [contactInfo, setContactInfo] = useState(userDb?.phoneNumber || "234");
 
   //Line 81: this is a use State that contains contact info or phone number.
 
@@ -162,10 +163,11 @@ const GeoModal = ({ location, query, cancel, radius }) => {
           </div>
           <div className="w-1/2 flex flex-col justify-center items-center ">
             <form className="text-left font-semibold" onSubmit={addGeolocation}>
+              {console.log(userDb.phoneNumber,"HAHAHAHA")}
               <h2 className="my-4">Contact Phone Number:</h2>
               <input
                 type="tel"
-                defaultValue={"+234"}
+                defaultValue={userDb?.phoneNumber }
                 className=" rounded-md px-2 py-2 border-2 border-gray-400"
                 onChange={(e) => setContactInfo(e.target.value)}
               />
