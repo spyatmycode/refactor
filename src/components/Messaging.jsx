@@ -4,13 +4,16 @@ import girl from "../assets/girl.jpeg";
 import { AuthContext } from "../contexts/AuthProvider";
 import { toast } from "react-hot-toast";
 import loader from '../assets/220 (2).gif'
+import axios from "axios";
 const Messaging = () => {
   const { userDb } = useContext(AuthContext);
   const { data } = useContext(DatabaseContext);
   const [geoObject, setGeoObject] = useState({});
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true);
 
 
 
@@ -55,11 +58,10 @@ const Messaging = () => {
   const firstRadius =
     (radiusArray && radiusArray?.sort((a, b) => b - a)[0]) || 0;
   console.log(firstRadius);
-  const firstGeoHistory = (firstTime && geolocationHistory[firstTime].query) ||0;
+  const firstGeoHistory = (firstTime && geolocationHistory[firstTime]) ||0;
 
-  console.log(firstGeoHistory);
 
-  function degToRad(deg) {
+ /*  function degToRad(deg) {
     return deg * (Math.PI / 180);
   }
 
@@ -81,7 +83,35 @@ const Messaging = () => {
     const distance = earthRadius * c;
 
     return distance;
-  }
+  } */
+
+
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      setError("Geolocation is not supported by your browser");
+      setIsLoading(false); // Update loading state
+      return;
+    }
+
+    const watchId = navigator.geolocation.watchPosition(
+      (position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude); 
+
+        setIsLoading(false); // Update loading state
+      },
+      (error) => {
+        setError(`Error: ${error.message}`);
+        setIsLoading(false); // Update loading state
+      }
+    );
+
+    return () => {
+      navigator.geolocation.clearWatch(watchId); // Cleanup the watchPosition listener
+    };
+  }, []);
+
+  // console.log(firstGeoHistory);
 
 
 
@@ -93,32 +123,56 @@ const Messaging = () => {
   const date = new Date().getTime();
 
   console.log(date);
-  const initialMessage = {
-    content: `Hello ${userDb.nextofkin} Its me ${userDb.firstname} ${userDb.lastname} I've been kidnapped. Please reach out to the authorities. My last know coordinates are ${"6.5142784, 3.3718272"} at the Bells University of Technology.
-    Here is a map reference: https://www.latlong.net/c/?lat=6.514278&long=3.371827
-    
-    `,
-    phonenumber: userDb.phonenumber,
+  let initialMessage = {
+    content: "",
+    phonenumber: userDb?.phonenumber,
     time: date,
   }
 
-  console.log(firstGeoHistory,"HAHA");
+  useEffect(()=>{
+
+    setMessage({
+
+      
+    
+
+      content: `Hello ${userDb?.nextofkin} Its me ${userDb?.firstname} ${userDb?.lastname} I've been kidnapped. Please reach out to the authorities. My last know coordinates are https://www.latlong.net/c/?lat=${userDb && latitude}&long=${userDb && longitude}
+    `,
+    phonenumber: userDb?.phonenumber,
+    time: date,
+
+    })
+
+  },[userDb,longitude,latitude])
+
+  
 
   console.log(initialMessage, "INIT");
-  const [message, setMesssage] = useState(initialMessage);
+  const [message, setMessage] = useState(initialMessage);
 
   console.log(userDb);
   const handleChange = (e) => {
     const { value, name } = e.target;
-    setMesssage({ ...message, [name]: value });
+    setMessage({ ...message, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true)
 
-    try {
-      const response = await fetch("https://geofence-server-1.onrender.com/submit", {
+
+    await axios.post("http://localhost:3001/send",{content:message.content,number:message.phonenumber}).then((res)=>{
+      console.log(res);
+      setLoading(false)
+      toast.success("Success: Alert created !")
+    }).catch((err)=>{
+      setLoading(false)
+      toast.error(`Error:${err.message}`)
+      console.log(err)
+    })
+
+   /*  try {
+      const response = await fetch("http://localhost:3001/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -133,13 +187,15 @@ const Messaging = () => {
     } catch (error) {
         setLoading(false)
       toast.error(error.message);
-    }
+    } */
   };
 
   console.log(message);
   return (
     <>
-      <div className="w-full h-full flex justify-center items-center flex-col bg-[#5B5AC5]">
+      {
+       ( geolocationHistory && data && userDb) ?(
+          <div className="w-full h-full flex justify-center items-center flex-col bg-[#5B5AC5]">
         <div className="w-32 h-32 rounded-full border-2 border-blue-500 overflow-hidden">
           <img
             src={girl}
@@ -158,7 +214,7 @@ const Messaging = () => {
             <label htmlFor="">Next of Kin Phone number</label>
             <input
               type="text"
-              defaultValue={message.phonenumber}
+              defaultValue={message?.phonenumber}
               name="phonenumber"
               onChange={handleChange}
               className="w-full px-4 border-4 border-blue-700"
@@ -170,7 +226,7 @@ const Messaging = () => {
               className="w-full border-4 border-blue-700  px-4"
               name="content"
               onChange={handleChange}
-              defaultValue={message.content}
+              value={message.content}
               id=""
               cols="30"
               rows="10"
@@ -184,7 +240,12 @@ const Messaging = () => {
           </span>
         </form>
       </div>
-    </>
+
+        ):<div className="w-full h-full top-0 absolute flex  items-center justify-center backdrop-brightness-50 flex-col gap-5">
+        <div className="text-white text-base lg:text-2xl italic">Loading...</div>
+        <img src={loader} alt="loader" width={"100px"} />
+      </div>
+      }    </>
   );
 };
 

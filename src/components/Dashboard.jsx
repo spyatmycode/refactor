@@ -79,7 +79,7 @@ const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const { data } = useContext(DatabaseContext);
 
-  console.log(data);
+  // console.log(data);
 
   const { user } = useContext(AuthContext);
 
@@ -113,7 +113,7 @@ const Dashboard = () => {
   const radiusCircleData = geoArray && geoArray.map((item)=>(item.radius))
   const locationCircleData = geoArray && geoArray.map((item)=>(item.place_name))
 
-  console.log(radiusCircleData,locationCircleData);
+  // console.log(radiusCircleData,locationCircleData);
 
   const avgRadius = () => {
     let sum = 0;
@@ -123,11 +123,11 @@ const Dashboard = () => {
     return value / radiusArray.length;
   };
 
-  console.log(avgRadius());
+  // console.log(avgRadius());
 
   const prompt = (item) => {
     setShowModal(true);
-    console.log("deez", item);
+    // console.log("deez", item);
     setDeleteItem({ ...item });
   };
 
@@ -147,7 +147,7 @@ const Dashboard = () => {
         setShowModal(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         toast.error(`Error: ${err.message}`);
         setShowModal(false);
       });
