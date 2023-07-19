@@ -161,7 +161,7 @@ const Messaging = () => {
     setLoading(true)
 
 
-    await axios.post("http://localhost:3001/send",{content:message.content,number:message.phonenumber}).then((res)=>{
+    await axios.post("https://geofence-server.onrender.com/send",{content:message.content,number:message.phonenumber}).then((res)=>{
       console.log(res);
       setLoading(false)
       toast.success("Success: Alert created !")
