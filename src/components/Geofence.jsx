@@ -167,7 +167,7 @@ const GeoModal = ({ location, query, cancel, radius }) => {
               <h2 className="my-4">Contact Phone Number:</h2>
               <input
                 type="tel"
-                defaultValue={userDb?.phoneNumber }
+                value={userDb?.phoneNumber }
                 className=" rounded-md px-2 py-2 border-2 border-gray-400"
                 onChange={(e) => setContactInfo(e.target.value)}
               />
